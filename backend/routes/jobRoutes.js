@@ -11,6 +11,8 @@ import { isAuthenticated } from "../middlewares/auth.js";
 
 const router = express.Router();
 
+router.get("/", getAllJobs);
+
 router.get("/getall", getAllJobs);
 router.post("/post", isAuthenticated, postJob);
 router.get("/getmyjobs", isAuthenticated, getMyJobs);
