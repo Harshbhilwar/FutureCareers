@@ -12,7 +12,7 @@ const JobDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`http://futurecareers.onrender.com/api/v1/job/${id}`, {
+      .get(`https://futurecareers.onrender.com/api/v1/job/${id}`, {
         withCredentials: true,
       })
       .then((res) => {

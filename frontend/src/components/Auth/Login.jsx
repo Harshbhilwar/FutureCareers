@@ -21,7 +21,7 @@ const Login = () => {
     setLoading(true);
     try {
       const { data } = await axios.post(
-        "http://futurecareers.onrender.com/api/v1/user/login",
+        "https://futurecareers.onrender.com/api/v1/user/login",
         { email, password, role },
         {
           headers: {

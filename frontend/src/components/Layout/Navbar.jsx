@@ -14,7 +14,7 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       const response = await axios.get(
-        "http://futurecareers.onrender.com/api/v1/user/logout",
+        "https://futurecareers.onrender.com/api/v1/user/logout",
         {
           withCredentials: true,
         }

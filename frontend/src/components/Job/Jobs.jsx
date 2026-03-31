@@ -9,7 +9,7 @@ const Jobs = () => {
   useEffect(() => {
     try {
       axios
-        .get("http://futurecareers.onrender.com/api/v1/job/getall", {
+        .get("https://futurecareers.onrender.com/api/v1/job/getall", {
           withCredentials: true,
         })
         .then((res) => {

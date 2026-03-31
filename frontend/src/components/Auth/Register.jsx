@@ -25,7 +25,7 @@ const Register = () => {
     setLoading(true);
     try {
       const { data } = await axios.post(
-        "http://futurecareers.onrender.com/api/v1/user/register",
+        "https://futurecareers.onrender.com/api/v1/user/register",
         { name, phone, email, role, password },
         {
           headers: {
