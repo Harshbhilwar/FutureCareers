@@ -17,30 +17,36 @@ const Login = () => {
   const { isAuthorized, setIsAuthorized } = useContext(Context);
 
   const handleLogin = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      const { data } = await axios.post(
-        "https://futurecareers.onrender.com/api/v1/user/login",
-        { email, password, role },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
-      );
-      toast.success(data.message);
-      setEmail("");
-      setPassword("");
-      setRole("");
-      setIsAuthorized(true);
-    } catch (error) {
-      toast.error(error.response.data.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+  e.preventDefault();
+  setLoading(true);
+
+  try {
+    const { data } = await axios.post(
+      "https://futurecareers.onrender.com/api/v1/user/login",
+      { email, password, role },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      }
+    );
+
+    localStorage.setItem("token", data.token); // ✅ CORRECT
+
+    toast.success(data.message);
+    setEmail("");
+    setPassword("");
+    setRole("");
+    setIsAuthorized(true);
+
+  } catch (error) {
+    toast.error(error.response?.data?.message || "Login failed"); // ✅ only ONE catch
+
+  } finally {
+    setLoading(false);
+  }
+};
 
   if(isAuthorized){
     return <Navigate to={'/'}/>
