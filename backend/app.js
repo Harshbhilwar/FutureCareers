@@ -14,13 +14,16 @@ config({ path: "./config/config.env" });
 
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL,
+    origin: "https://future-careers-three.vercel.app",
     methods: ["GET", "POST", "DELETE", "PUT"],
     credentials: true,
   })
 );
 
-app.options("*", cors());
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Credentials", "true");
+  next();
+});
 
 app.use(cookieParser());
 app.use(express.json());
