@@ -16,9 +16,14 @@ const MyJobs = () => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
+        const token = localStorage.getItem("token");
         const { data } = await axios.get(
           `${import.meta.env.VITE_API_URL}/job/getmyjobs`,
-          { withCredentials: true }
+          {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          }
         );
         setMyJobs(data.myJobs);
       } catch (error) {
@@ -45,10 +50,15 @@ const MyJobs = () => {
 
   //Function For Updating The Job
   const handleUpdateJob = async (jobId) => {
+    const token = localStorage.getItem("token");
     const updatedJob = myJobs.find((job) => job._id === jobId);
     await axios
-      .put(`${import.meta.env.VITE_API_URL}/job/update/${jobId}`, updatedJob, {
-        withCredentials: true,
+      .put(`${import.meta.env.VITE_API_URL}/job/update/${jobId}`, 
+        updatedJob, 
+      {
+         headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then((res) => {
         toast.success(res.data.message);
@@ -61,9 +71,12 @@ const MyJobs = () => {
 
   //Function For Deleting Job
   const handleDeleteJob = async (jobId) => {
+    const token = localStorage.getItem("token");
     await axios
       .delete(`${import.meta.env.VITE_API_URL}/job/delete/${jobId}`, {
-        withCredentials: true,
+         headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then((res) => {
         toast.success(res.data.message);

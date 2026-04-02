@@ -21,18 +21,19 @@ const Login = () => {
   setLoading(true);
 
   try {
+    const token = localStorage.getItem("token");
     const { data } = await axios.post(
       `${import.meta.env.VITE_API_URL}/user/login`,
       { email, password, role },
       {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-        withCredentials: true,
       }
     );
 
-    localStorage.setItem("token", data.token); // ✅ CORRECT
+    localStorage.setItem("token", data.token); 
 
     toast.success(data.message);
     setEmail("");
@@ -41,7 +42,7 @@ const Login = () => {
     setIsAuthorized(true);
 
   } catch (error) {
-    toast.error(error.response?.data?.message || "Login failed"); // ✅ only ONE catch
+    toast.error(error.response?.data?.message || "Login failed"); 
 
   } finally {
     setLoading(false);

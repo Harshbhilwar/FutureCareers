@@ -17,6 +17,8 @@ const PostJob = () => {
 
   const { isAuthorized, user } = useContext(Context);
 
+  const token = localStorage.getItem("token");
+
   const handleJobPost = async (e) => {
     e.preventDefault();
     if (salaryType === "Fixed Salary") {
@@ -53,9 +55,9 @@ const PostJob = () => {
               salaryTo,
             },
         {
-          withCredentials: true,
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
         }
       )

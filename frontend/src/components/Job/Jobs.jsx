@@ -8,9 +8,12 @@ const Jobs = () => {
   const { isAuthorized } = useContext(Context);
   useEffect(() => {
     try {
+      const token = localStorage.getItem("token");
       axios
         .get(`${import.meta.env.VITE_API_URL}/job/getall`, {
-          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         })
         .then((res) => {
           setJobs(res.data);
