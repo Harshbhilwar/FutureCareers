@@ -37,7 +37,6 @@ export const postApplication = catchAsyncErrors(async (req, res, next) => {
       resume.tempFilePath,
       {
         resource_type: isPDF ? "raw" : "image", 
-        format: isPDF ? "pdf" : undefined,
       }
     );
 
@@ -50,6 +49,10 @@ export const postApplication = catchAsyncErrors(async (req, res, next) => {
     }
     
     const { name, email, coverLetter, phone, address, jobId } = req.body;
+
+    if (!jobId) {
+      return next(new ErrorHandler("Job not found!", 404));
+    }
 
     const alreadyApplied = await Application.findOne({
       "applicantID.user": req.user._id,
@@ -66,9 +69,7 @@ export const postApplication = catchAsyncErrors(async (req, res, next) => {
       role: "Job Seeker",
     };
     
-    if (!jobId) {
-      return next(new ErrorHandler("Job not found!", 404));
-    }
+    
     
     const jobDetails = await Job.findById(jobId);
     if (!jobDetails) {
@@ -93,6 +94,10 @@ export const postApplication = catchAsyncErrors(async (req, res, next) => {
       return next(new ErrorHandler("Please fill all fields.", 400));
     }
     
+    const fileUrl = isPDF
+      ? `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/raw/upload/${cloudinaryResponse.public_id}`
+      : cloudinaryResponse.secure_url;
+
     const application = await Application.create({
       name,
       email,
@@ -104,7 +109,7 @@ export const postApplication = catchAsyncErrors(async (req, res, next) => {
       jobId,
       resume: {
         public_id: cloudinaryResponse.public_id,
-        url: cloudinaryResponse.secure_url,
+        url: fileUrl,
       },
     });
     
