@@ -160,11 +160,23 @@ const JobSeekerCard = ({ element, deleteApplication, openModal }) => {
           </p>
         </div>
         <div className="resume">
-          <img
-            src={element.resume.url}
-            alt="resume"
-            onClick={() => openModal(element.resume.url)}
-          />
+          {element.resume.url.endsWith(".pdf") ? (
+            <a
+              href={element.resume.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "blue", cursor: "pointer" }}
+            >
+              View Resume (PDF)
+            </a>
+          ) : (
+            <img
+              src={element.resume.url}
+              alt="resume"
+              onClick={() => openModal(element.resume.url)}
+              style={{ width: "200px", cursor: "pointer" }}
+            />
+          )}
         </div>
         <div className="btn_area">
           <button onClick={() => deleteApplication(element._id)}>
@@ -198,11 +210,23 @@ const EmployerCard = ({ element, openModal }) => {
           </p>
         </div>
         <div className="resume">
-          <img
-            src={element.resume.url}
-            alt="resume"
-            onClick={() => openModal(element.resume.url)}
-          />
+          {element.resume.url.endsWith(".pdf") ? (
+            <a
+              href={element.resume.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "blue", cursor: "pointer" }}
+            >
+              View Resume (PDF)
+            </a>
+          ) : (
+            <img
+              src={element.resume.url}
+              alt="resume"
+              onClick={() => openModal(element.resume.url)}
+              style={{ width: "200px", cursor: "pointer" }}
+            />
+          )}
         </div>
       </div>
     </>
