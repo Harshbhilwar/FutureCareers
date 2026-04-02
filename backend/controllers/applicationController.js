@@ -47,6 +47,17 @@ export const postApplication = catchAsyncErrors(async (req, res, next) => {
     }
     
     const { name, email, coverLetter, phone, address, jobId } = req.body;
+
+    const alreadyApplied = await Application.findOne({
+      "applicantID.user": req.user._id,
+      jobId: jobId,
+    });
+
+    if (alreadyApplied) {
+      return next(
+      new ErrorHandler("You already applied for this job!", 400)
+      );
+    }
     const applicantID = {
       user: req.user._id,
       role: "Job Seeker",
@@ -87,6 +98,7 @@ export const postApplication = catchAsyncErrors(async (req, res, next) => {
       address,
       applicantID,
       employerID,
+      jobId,
       resume: {
         public_id: cloudinaryResponse.public_id,
         url: cloudinaryResponse.secure_url,
