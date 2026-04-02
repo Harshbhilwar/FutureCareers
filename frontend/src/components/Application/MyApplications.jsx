@@ -160,7 +160,7 @@ const JobSeekerCard = ({ element, deleteApplication, openModal }) => {
           </p>
         </div>
         <div className="resume">
-          {element.resume.url.endsWith(".pdf") ? (
+          {element.resume.url.includes("/raw/upload/") ? (
             <a
               href={element.resume.url}
               target="_blank"
@@ -210,7 +210,7 @@ const EmployerCard = ({ element, openModal }) => {
           </p>
         </div>
         <div className="resume">
-          {element.resume.url.endsWith(".pdf") ? (
+          {element.resume.url.includes("/raw/upload/") ? (
             <a
               href={element.resume.url}
               target="_blank"
