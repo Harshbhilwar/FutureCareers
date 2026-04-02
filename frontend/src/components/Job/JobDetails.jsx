@@ -11,9 +11,14 @@ const JobDetails = () => {
   const { isAuthorized, user } = useContext(Context);
 
   useEffect(() => {
+
+    const token = localStorage.getItem("token");
+
     axios
-      .get(`https://futurecareers.onrender.com/api/v1/job/${id}`, {
-        withCredentials: true,
+      .get(`${import.meta.env.VITE_API_URL}/job/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then((res) => {
         setJob(res.data.job);
@@ -21,7 +26,7 @@ const JobDetails = () => {
       .catch((error) => {
         navigateTo("/notfound");
       });
-  }, []);
+  }, [id]);
 
   if (!isAuthorized) {
     return <Navigate to="/login" />;

@@ -20,7 +20,7 @@ const MyApplications = () => {
     try {
       if (user && user.role === "Employer") {
         axios
-          .get("https://futurecareers.onrender.com/api/v1/application/employer/getall", {
+          .get(`${import.meta.env.VITE_API_URL}/application/employer/getall`, {
             withCredentials: true,
           })
           .then((res) => {
@@ -28,7 +28,7 @@ const MyApplications = () => {
           });
       } else {
         axios
-          .get("https://futurecareers.onrender.com/api/v1/application/jobseeker/getall", {
+          .get(`${import.meta.env.VITE_API_URL}/application/jobseeker/getall`, {
             withCredentials: true,
           })
           .then((res) => {
@@ -47,7 +47,7 @@ const MyApplications = () => {
   const deleteApplication = (id) => {
     try {
       axios
-        .delete(`https://futurecareers.onrender.com/api/v1/application/delete/${id}`, {
+        .delete(`${import.meta.env.VITE_API_URL}/application/delete/${id}`, {
           withCredentials: true,
         })
         .then((res) => {
