@@ -63,6 +63,19 @@ const PostJob = () => {
       )
       .then((res) => {
         toast.success(res.data.message);
+
+        setTitle("");
+        setDescription("");
+        setCategory("");
+        setCountry("");
+        setCity("");
+        setLocation("");
+        setSalaryFrom("");
+        setSalaryTo("");
+        setFixedSalary("");
+        setSalaryType("default");
+
+        navigateTo("/job/me");
       })
       .catch((err) => {
         toast.error(err.response.data.message);

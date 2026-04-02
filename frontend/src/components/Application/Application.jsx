@@ -154,7 +154,7 @@ const Application = () => {
             >
               Upload Resume 
               <p style={{ color: "red", fontSize: "12px", margin: "5px 0 0 0" }}>
-                (Supported formats: PNG, JPEG, WEBP. Max size: 2MB)
+                (Supported formats: PNG, JPEG, WEBP, PDF. Max size: 2MB)
               </p>
             </label>
             <input
