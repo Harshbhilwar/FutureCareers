@@ -95,7 +95,7 @@ export const postApplication = catchAsyncErrors(async (req, res, next) => {
     }
     
     const fileUrl = isPDF
-      ? `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/raw/upload/${cloudinaryResponse.public_id}`
+      ? `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/raw/upload/${cloudinaryResponse.public_id}.pdf`
       : cloudinaryResponse.secure_url;
 
     const application = await Application.create({
