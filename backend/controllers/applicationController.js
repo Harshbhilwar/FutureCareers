@@ -37,6 +37,7 @@ export const postApplication = catchAsyncErrors(async (req, res, next) => {
       resume.tempFilePath,
       {
         resource_type: isPDF ? "raw" : "image", 
+        access_mode: "public",
       }
     );
 
