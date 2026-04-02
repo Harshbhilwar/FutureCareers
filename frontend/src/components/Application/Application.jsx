@@ -29,9 +29,9 @@ const Application = () => {
     }
     
     // Check file type
-    const allowedTypes = ["image/png", "image/jpeg", "image/webp"];
+    const allowedTypes = ["image/png", "image/jpeg", "image/webp", "application/pdf"];
     if (!allowedTypes.includes(file.type)) {
-      setFileError("Please select a valid image file (PNG, JPEG, or WEBP)");
+      setFileError("Please select a valid file (PNG, JPEG, WEBP or PDF)");
       setResume(null);
       return;
     }
