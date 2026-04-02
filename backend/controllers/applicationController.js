@@ -31,10 +31,12 @@ export const postApplication = catchAsyncErrors(async (req, res, next) => {
   }
   
   try {
+    const isPDF = resume.mimetype === "application/pdf";
+
     const cloudinaryResponse = await cloudinary.uploader.upload(
       resume.tempFilePath,
       {
-        resource_type: "auto", 
+        resource_type: isPDF ? "raw" : "image", 
       }
     );
 
