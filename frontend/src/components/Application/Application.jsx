@@ -159,7 +159,7 @@ const Application = () => {
             </label>
             <input
               type="file"
-              accept=".png,.jpg,.jpeg,.webp"
+              accept=".png,.jpg,.jpeg,.webp,.pdf"
               onChange={handleFileChange}
               style={{ width: "100%" }}
             />
