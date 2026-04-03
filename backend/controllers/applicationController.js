@@ -31,15 +31,12 @@ export const postApplication = catchAsyncErrors(async (req, res, next) => {
   }
   
   try {
-    const isPDF = resume.mimetype === "application/pdf";
-
     const cloudinaryResponse = await cloudinary.uploader.upload(
       resume.tempFilePath,
-      {
-        resource_type: isPDF ? "raw" : "image", 
-        access_mode: "public",
-      }
-    );
+    {
+       resource_type: "auto", 
+    }
+  );
 
     if (!cloudinaryResponse || cloudinaryResponse.error) {
       console.error(
@@ -95,9 +92,7 @@ export const postApplication = catchAsyncErrors(async (req, res, next) => {
       return next(new ErrorHandler("Please fill all fields.", 400));
     }
     
-    const fileUrl = isPDF
-      ? `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/raw/upload/${cloudinaryResponse.public_id}.pdf`
-      : cloudinaryResponse.secure_url;
+    const fileUrl = cloudinaryResponse.secure_url;
 
     const application = await Application.create({
       name,
